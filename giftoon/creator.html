@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Berikan gift dan dukungan untuk kreator favoritmu di JajaninId">
+  <title>Profil Kreator — JajaninId</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">Jajanin<span>Id</span></a>
+    <div class="nav-links">
+      <a href="explore.html">🔍 Explore</a>
+      <a href="login.html">Login</a>
+      <a href="register.html" class="btn btn-primary btn-sm">Sign Up ✨</a>
+    </div>
+  </nav>
+
+  <!-- PROFILE HEADER -->
+  <section class="profile-header">
+    <div class="profile-avatar" id="creatorAvatar">🎮</div>
+    <h1 id="creatorName">Gaming Zone</h1>
+    <p class="bio" id="creatorBio">Pro gamer & streamer</p>
+    <div class="profile-stats">
+      <div class="stat">
+        <div class="stat-num" id="creatorSupporters">0</div>
+        <div class="stat-label">Supporters</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="creatorGifts">Rp 0</div>
+        <div class="stat-label">Total Gift</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GIFT SECTION -->
+  <section class="gift-section">
+    <h2>Kirim Gift Dukungan 🎁</h2>
+    
+    <!-- Dynamic Gift Options (GIFT_PRESETS) -->
+    <div class="gift-grid" id="giftGrid"></div>
+    
+    <div class="gift-custom">
+      <div class="form-group">
+        <label>Atau masukkan nominal kustom sendiri:</label>
+        <input type="number" class="comic-input" id="customAmount" placeholder="Contoh: 75000"
+          oninput="onCustomAmount(this.value)">
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Pesan penyemangat untuk kreator (opsional):</label>
+      <textarea class="comic-input" id="giftMessage" rows="3" placeholder="Tulis pesan penyemangatmu di sini... 💬"
+        style="resize:vertical"></textarea>
+    </div>
+
+    <!-- INVOICE SUMMARY -->
+    <div class="gift-summary">
+      <div class="row"><span>Nominal Gift</span><span id="summaryAmount">Rp 0</span></div>
+      <div class="row"><span>Platform Fee (1%)</span><span id="summaryFee">Rp 0</span></div>
+      <div class="row total"><span>Total Transfer</span><span id="summaryTotal">Rp 0</span></div>
+    </div>
+
+    <!-- PAYMENT SELECTION -->
+    <h3 style="font-family:var(--font-display); font-size:1.15rem; font-weight:700; margin-bottom:16px; color:#fff">Pilih Metode Pembayaran 💳</h3>
+    <div class="payment-methods" id="paymentGrid"></div>
+
+    <button class="btn btn-primary btn-lg" style="width:100%; margin-top:20px"
+      onclick="sendGift()">
+      Kirim Dukungan Sekarang! 🚀
+    </button>
+  </section>
+
+  <!-- RECENT SUPPORTERS -->
+  <section class="supporters-section" style="border-top: 1px solid var(--border); padding-top: 60px; margin-top: 60px;">
+    <h2 style="font-family:var(--font-display); font-size:1.5rem; font-weight: 800; margin-bottom:30px; text-align: center; color: #fff;">
+      Supporter Terbaru 💕</h2>
+    <div id="supportersList"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-bottom">© 2026 JajaninId. Made with ❤️ di Indonesia</div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

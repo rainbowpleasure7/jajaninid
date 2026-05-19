@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Kreator — JajaninId</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">Jajanin<span>Id</span></a>
+    <div class="nav-links">
+      <a href="explore.html">🔍 Explore</a>
+      <a href="/backend/auth.php?action=logout" class="btn btn-danger btn-sm">Logout 🚪</a>
+    </div>
+  </nav>
+
+  <!-- DASHBOARD WRAPPER -->
+  <div class="dash-layout">
+    <!-- SIDEBAR -->
+    <aside class="dash-sidebar">
+      <div class="sidebar-title">📊 Menu Kreator</div>
+      <a href="#" class="active"><span class="icon">🏠</span> Overview</a>
+      <a href="#gifts"><span class="icon">🎁</span> Gift Masuk</a>
+      <a href="#withdraw"><span class="icon">💰</span> Pencairan</a>
+      <a href="#" onclick="goToMyPage()"><span class="icon">👤</span> Halaman Publik</a>
+      <a href="#"><span class="icon">⚙️</span> Pengaturan</a>
+    </aside>
+
+    <!-- MAIN CONTROL CENTER -->
+    <main class="dash-main">
+      <h1 id="dashGreeting">Halo, Kreator! 🎮</h1>
+
+      <!-- METRIC CARDS -->
+      <div class="stat-cards">
+        <div class="comic-card stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-value" id="statEarnings">Rp 0</div>
+          <div class="stat-label">Total Pendapatan</div>
+        </div>
+        <div class="comic-card stat-card">
+          <div class="stat-icon">💎</div>
+          <div class="stat-value" id="statBalance">Rp 0</div>
+          <div class="stat-label">Saldo Tersedia</div>
+        </div>
+        <div class="comic-card stat-card">
+          <div class="stat-icon">👥</div>
+          <div class="stat-value" id="statSupporters">0</div>
+          <div class="stat-label">Total Supporters</div>
+        </div>
+        <div class="comic-card stat-card">
+          <div class="stat-icon">🎁</div>
+          <div class="stat-value" id="statMonthly">0</div>
+          <div class="stat-label">Gift Bulan Ini</div>
+        </div>
+      </div>
+
+      <!-- RECENT TRANSACTION RECORDS -->
+      <div class="comic-card" style="padding:0; margin-bottom: 40px;" id="gifts">
+        <div style="padding:28px 28px 0">
+          <h2 style="font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:#fff;">Daftar Gift Masuk 🎁</h2>
+          <p style="color:var(--text-sec); font-size:.88rem; margin-top:6px">Histori transaksi donasi dari fans setia secara real-time</p>
+        </div>
+        <div style="overflow-x:auto; padding:20px">
+          <table class="table-comic">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Dari</th>
+                <th>Nominal</th>
+                <th>Platform Fee (1%)</th>
+                <th>Metode</th>
+                <th>Status</th>
+                <th>Tanggal</th>
+              </tr>
+            </thead>
+            <tbody id="giftTableBody">
+              <tr>
+                <td colspan="7" style="text-align:center; font-style: italic; color:var(--text-muted);">
+                  Memuat data transaksi dari database...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- BANK / E-WALLET WITHDRAWAL PANEL -->
+      <div class="comic-card" style="padding:32px;" id="withdraw">
+        <h2 style="font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:#fff; margin-bottom:6px">Pencairan Saldo 💰</h2>
+        <p style="color:var(--text-sec); font-size:.88rem; margin-bottom:28px">Tarik penghasilan terkumpul langsung ke rekening bank atau dompet digital Anda</p>
+        
+        <div style="max-width:440px;">
+          <div class="form-group">
+            <label>Nominal Penarikan (Minimum Rp 50.000)</label>
+            <input type="number" class="comic-input" id="withdrawAmount" placeholder="Contoh: 150000" min="50000">
+          </div>
+          
+          <div class="form-group">
+            <label>Metode Penarikan Dana</label>
+            <select class="comic-input" id="withdrawMethod">
+              <option value="">— Pilih Bank / E-Wallet —</option>
+              <option value="Bank BCA">Bank BCA</option>
+              <option value="Bank BNI">Bank BNI</option>
+              <option value="Bank Mandiri">Bank Mandiri</option>
+              <option value="GoPay">GoPay</option>
+              <option value="DANA">DANA</option>
+              <option value="OVO">OVO</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Nomor Rekening / Nomor Telepon Akun</label>
+            <input type="text" class="comic-input" id="withdrawAccount" placeholder="Nomor rekening atau nomor HP terdaftar">
+          </div>
+          
+          <button class="btn btn-primary btn-lg" style="width:100%; margin-top:8px" onclick="requestWithdraw()">
+            Cairkan Saldo Sekarang 💸
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Update greeting when session loads
+    checkSession().then(() => {
+      if (currentUser) {
+        const greet = document.getElementById('dashGreeting');
+        if (greet) greet.textContent = `Halo, ${currentUser.name}! 🎮`;
+      }
+    });
+
+    function goToMyPage() {
+      // Fetch creator username and redirect
+      fetch('/backend/api.php?action=dashboard')
+        .then(r => r.json())
+        .then(d => {
+          if (d.profile) window.location.href = `creator.html?u=${d.profile.username}`;
+        });
+    }
+  </script>
+</body>
+
+</html>

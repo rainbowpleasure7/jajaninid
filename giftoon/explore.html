@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Temukan konten kreator favoritmu dan berikan dukungan di JajaninId">
+  <title>Explore Kreator — JajaninId</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">Jajanin<span>Id</span></a>
+    <div class="nav-links">
+      <a href="explore.html" style="color:var(--primary)">🔍 Explore</a>
+      <a href="login.html">Login</a>
+      <a href="register.html" class="btn btn-primary btn-sm">Sign Up ✨</a>
+    </div>
+  </nav>
+
+  <!-- EXPLORE MAIN SECTION -->
+  <section class="section" style="padding-top:60px; min-height: 80vh;">
+    <div class="section-subtitle">Discover</div>
+    <h1 class="section-title">Explore Kreator 🔍</h1>
+
+    <!-- Search Input Panel -->
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input type="text" class="comic-input" placeholder="Cari nama atau username kreator..." oninput="searchCreators(this.value)">
+    </div>
+
+    <!-- Category Filters -->
+    <div class="filter-bar" id="filterBar">
+      <button class="filter-btn active" onclick="filterCreators('Semua', this)">Semua</button>
+      <button class="filter-btn" onclick="filterCreators('Gaming', this)">🎮 Gaming</button>
+      <button class="filter-btn" onclick="filterCreators('Art', this)">🎨 Art</button>
+      <button class="filter-btn" onclick="filterCreators('Music', this)">🎵 Music</button>
+      <button class="filter-btn" onclick="filterCreators('Cooking', this)">🍳 Cooking</button>
+      <button class="filter-btn" onclick="filterCreators('Tech', this)">📱 Tech</button>
+      <button class="filter-btn" onclick="filterCreators('Comedy', this)">😂 Comedy</button>
+      <button class="filter-btn" onclick="filterCreators('Fitness', this)">💪 Fitness</button>
+      <button class="filter-btn" onclick="filterCreators('Travel', this)">✈️ Travel</button>
+    </div>
+
+    <!-- Dynamic Creator Grid -->
+    <div class="creator-grid" id="creatorGrid"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-bottom">© 2026 JajaninId. Made with ❤️ di Indonesia</div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
